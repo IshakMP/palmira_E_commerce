@@ -1,0 +1,114 @@
+<div class="content">
+  <div class="py-4 px-3 px-md-4">
+    <div class="card mb-3 mb-md-4">
+
+      <div class="card-body">
+
+
+        <!-- Breadcrumb -->
+        <nav class="d-none d-md-block" aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a href="">Products</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">All Products</li>
+          </ol>
+        </nav>
+
+        <!-- Alert Info -->
+        {{#if msg}}
+        <div class="alert alert-info">
+          <strong>Info!</strong> {{msg}}
+        </div>
+        {{/if}}
+
+        <div class="mb-3 mb-md-4 d-flex justify-content-between">
+          <div class="h3 mb-0">Products</div>
+
+          <!-- Button trigger modal -->
+
+          <div class="mr-3"><a href="/admin/add-product" class="btn border border-primary text-primary ">Add New
+              Product</a>
+          </div>
+        </div>
+
+
+        <!-- Products -->
+        <div class="table-responsive-xl">
+          <table class="table text-nowrap mb-0">
+            <thead>
+              <tr>
+                <th class="font-weight-semi-bold border-top-0 py-2">#</th>
+                <th class="font-weight-semi-bold border-top-0 py-2">PRODUCT NAME</th>
+                <th class="font-weight-semi-bold border-top-0 py-2">BRAND</th>
+                <th class="font-weight-semi-bold border-top-0 py-2">CATEGORY</th>
+                <th class="font-weight-semi-bold border-top-0 py-2">STOCK</th>
+                <th class="font-weight-semi-bold border-top-0 py-2">PRICE</th>
+                <th class="font-weight-semi-bold border-top-0 py-2">DATE</th>
+                <th class="font-weight-semi-bold border-top-0 py-2">RATING</th>
+
+
+                <th class="font-weight-semi-bold border-top-0 py-2 pr-4 text-right">ACTIONS</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each products}}
+              <tr>
+                <td class="py-3">{{plusOne @index }}</td>
+                <td class="align-middle py-3">
+                  <div class="d-flex align-items-center">
+                    <div class="position-relative mr-2">
+                      <span
+                        class="indicator indicator-lg indicator-bordered-reverse indicator-top-left indicator-success rounded-circle"></span>
+                      <!--img class="avatar rounded-circle" src="#" alt="John Doe"-->
+                      <span class="avatar-placeholder mr-md-2">J</span>
+                    </div>
+                    {{name}}
+                  </div>
+                </td>
+                <td class="py-3">{{brandName}}</td>
+                <td class="py-3">{{category}}</td>
+                <td class="py-3">{{stock}}</td>
+                <td class="py-3">{{price}}</td>
+
+
+                <td class="py-3">{{formatDate createdAt}}</td>
+                <td class="py-3">
+                  <span class="badge badge-pill badge-success">{{rating}}</span>
+
+                </td>
+                <td class="py-3">
+                  <div class="position-relative text-right">
+                    <a class="link-dark d-inline-block mr-3" href="/admin/edit-product/{{_id}}">
+                      <i class="gd-pencil icon-text "></i>
+                    </a>
+                    {{#if active}}
+                    <a class="btn btn-danger " href="/admin/block-product/{{_id}}?block=true">
+                      <i class="gd-alert icon-text mx-3"></i>
+                      {{else}}
+                      <a class="btn btn-success " href="/admin/block-product/{{_id}}?block=false">
+                        <i class="gd-apple icon-text mx-3"></i>
+                        {{/if}}
+
+                      </a>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                {{/each}}
+
+            </tbody>
+          </table>
+          <div class="card-footer d-block d-md-flex align-items-center d-print-none">
+            <div class="d-flex mb-2 mb-md-0">Showing 1 to {{products.length}} of {{products.length}} Entries</div>
+
+
+
+          </div>
+        </div>
+        <!-- End Products -->
+      </div>
+    </div>
+
+
+  </div>

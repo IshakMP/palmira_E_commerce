@@ -1,0 +1,63 @@
+<div class="content">
+  <div class="py-4 px-3 px-md-4">
+    <div class="card mb-3 mb-md-4">
+
+      <div class="card-body">
+        <!-- Breadcrumb -->
+        <nav class="d-none d-md-block" aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a href="#">Users</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">Edit User</li>
+          </ol>
+        </nav>
+
+        <!-- Alert Info -->
+        {{#if msg}}
+        <div class="alert alert-info">
+          <strong>Info!</strong> {{msg}}
+        </div>
+        {{/if}}
+
+
+        <div class="mb-3 mb-md-4 d-flex justify-content-between">
+          <div class="h3 mb-0">Edit User</div>
+        </div>
+        {{#with user}}
+        <!-- Form -->
+        <div>
+          <form action="/admin/edit-user/{{_id}}" method="post">
+            <div class="form-row">
+              <div class="form-group col-12 col-md-6">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" value="{{fullName}}" id="name" name="fullName"
+                  placeholder="User Name">
+              </div>
+              <div class="form-group col-12 col-md-6">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" value="{{email}}" id="email" name="email"
+                  placeholder="User Email">
+              </div>
+              <div class="form-group col-12 col-md-6">
+                <label for="mobile">Mobile</label>
+                <input type="string" class="form-control" value="{{mobile}}" id="mobile" name="mobile"
+                  placeholder="User Mobile">
+              </div>
+            </div>
+
+            {{!-- <div class="custom-control custom-switch mb-2">
+              <input type="checkbox" class="custom-control-input" id="randomPassword">
+              <label class="custom-control-label" for="randomPassword">Set Random Password</label>
+            </div> --}}
+
+            <button type="submit" class="btn btn-primary float-right">Create</button>
+          </form>
+        </div>
+        {{/with}}
+        <!-- End Form -->
+      </div>
+    </div>
+
+
+  </div>

@@ -240,8 +240,8 @@
                 <ul class="product__hover">
                   <li><a href="/user/public/img/shop/shop-1.jpg" class="image-popup"><span
                         class="arrow_expand"></span></a></li>
-                  <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                  <li><a href="#"><span class="icon_bag_alt"></span></a></li>
+                  <li><a onclick="addToWishlist('{{_id}}')"><span class="icon_heart_alt"></span></a></li>
+                  <li><a onclick="addToCart('{{_id}}',1)"><span class="icon_bag_alt"></span></a></li>
                 </ul>
               </div>
               <div class="product__item__text">
@@ -463,60 +463,68 @@
   </div>
 </section>
 <!-- Shop Section End -->
+<script>
+  function addToCart(id, qty) {
 
-<!-- Instagram Begin -->
-<div class="instagram">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-        <div class="instagram__item set-bg" data-setbg="/user/public/img/instagram/insta-1.jpg">
-          <div class="instagram__text">
-            <i class="fa fa-instagram"></i>
-            <a href="#">@ Place_PalmirA</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-        <div class="instagram__item set-bg" data-setbg="/user/public/img/instagram/insta-2.jpg">
-          <div class="instagram__text">
-            <i class="fa fa-instagram"></i>
-            <a href="#">@ Place_PalmirA</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-        <div class="instagram__item set-bg" data-setbg="/user/public/img/instagram/insta-3.jpg">
-          <div class="instagram__text">
-            <i class="fa fa-instagram"></i>
-            <a href="#">@ Place_PalmirA</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-        <div class="instagram__item set-bg" data-setbg="/user/public/img/instagram/insta-4.jpg">
-          <div class="instagram__text">
-            <i class="fa fa-instagram"></i>
-            <a href="#">@ Place_PalmirA</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-        <div class="instagram__item set-bg" data-setbg="/user/public/img/instagram/insta-5.jpg">
-          <div class="instagram__text">
-            <i class="fa fa-instagram"></i>
-            <a href="#">@ Place_PalmirA</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-        <div class="instagram__item set-bg" data-setbg="/user/public/img/instagram/insta-6.jpg">
-          <div class="instagram__text">
-            <i class="fa fa-instagram"></i>
-            <a href="#">@ Place_PalmirA</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Instagram End -->
+    axios.post('/add-to-cart', {
+      productId: id,
+      qty: qty,
+
+    })
+      .then(function (response) {
+        let title, text, footer, config;
+        if (response.data.message) {
+          config = { icon: 'success', title: response.data.message, footer: '<a class="btn btn-dark btn-sm" href="/cart">Proceed to Cart!</a>', showConfirmButton: false }
+        } else {
+          config = { icon: 'info', title: `You haven't Login yet 👀`, footer: '<a class="btn btn-dark btn-sm" href="/login?refUrl=/shop">Proceed to Login</a>', showConfirmButton: false }
+
+        }
+        Swal.fire(config);
+
+      })
+      .catch(function (error) {
+        Swal.fire({
+          title: 'failure',
+          text: error || 'oz',
+          footer: '<a href="">Why do I have this issue?</a>'
+        })
+      });
+  }
+
+  function addToWishlist(id) {
+
+    axios.post('/add-to-wish-list', {
+      productId: id,
+
+    })
+      .then(function (response) {
+        let title, text, footer, config;
+        if (response.data.message) {
+          config = {
+            toast: true,
+            position: 'top',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            title: 'Signed in successfully',
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+          }
+        } else {
+          config = { icon: 'info', title: `You haven't Login yet 👀`, footer: '<a class="btn btn-dark btn-sm" href="/login?refUrl=/shop">Proceed to Login</a>', showConfirmButton: false }
+
+        }
+        Swal.fire(config);
+
+      })
+      .catch(function (error) {
+        Swal.fire({
+          title: 'failure',
+          text: error || 'oz',
+          footer: '<a href="">Why do I have this issue?</a>'
+        })
+      });
+  }
+</script>

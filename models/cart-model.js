@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const number = require("mongoose/lib/cast/number");
 
 const cartSchema = new mongoose.Schema(
   {
@@ -12,12 +13,25 @@ const cartSchema = new mongoose.Schema(
           type: mongoose.Schema.Types.ObjectId,
           ref: "Product",
         },
-        Qty: {
+        qty: {
           type: Number,
           default: 1,
         },
+        amount: {
+          type: Number,
+        },
+        discount: {
+          type: Number,
+          default: 0,
+        },
+        fAmount: {
+          type: Number,
+        },
       },
     ],
+
+    total: Number,
+    count: Number,
 
     createdAt: {
       type: Date,
@@ -32,6 +46,12 @@ const cartSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+// cartSchema.pre("save", function (next) {
+//   this.count = this.products.length;
+//   this.total = this.products.reduce((a, b) => a + b, 0);
+//   next();
+// });
 
 const Cart = mongoose.model("Cart", cartSchema);
 module.exports = Cart;

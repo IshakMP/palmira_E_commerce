@@ -4,6 +4,17 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 module.exports = {
+  getUserDetails: async function (userId) {
+    const user = await UserModel.findOne({ userId }).lean();
+    // .populate("products.product")
+
+    // if (!user) {
+    //   let user = { products: [] };
+    //   return user;
+    // }
+
+    return user;
+  },
   doLogin: async function (req, isAdmin = false) {
     const { email, password } = req.body;
     let Model,
@@ -25,17 +36,18 @@ module.exports = {
       .select("+password")
       .lean();
 
-    // if (!newuser)
-    //   return (loginStatus = {
-    //     success: false,
-    //     msg: "User Name or Password invalid",
-    //   });
+    if (!newuser)
+      return (loginStatus = {
+        success: false,
+        msg: "User Name or Password invalid",
+      });
+
     // const { password: _, ...newuser2 } = newuser;
 
     test = await bcrypt.compare(password, newuser.password);
     delete newuser.password;
 
-    if (!newuser || !test)
+    if (!test)
       return (loginStatus = {
         success: false,
         msg: "User Name or Password invalid",
@@ -55,7 +67,14 @@ module.exports = {
     }
 
     try {
-      user = await Model.create(req.body);
+      user = await Model.create({
+        fullName: req.body.fullName,
+        mobile: req.body.mobile,
+        email: req.body.email,
+        password: req.body.password,
+      });
+      // $push: { addresses: { city: "city " + Math.random() } },
+
       user.success = true;
     } catch (error) {
       user.error = error;
@@ -86,9 +105,7 @@ module.exports = {
       { multi: true },
       (err, res) => {
         if (err) {
-          console.log(err);
         }
-        console.log(res);
       }
     );
   },

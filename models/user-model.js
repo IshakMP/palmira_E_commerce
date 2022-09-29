@@ -45,6 +45,22 @@ const userSchema = new mongoose.Schema(
       type: Object,
       default: { count: 0 },
     },
+    addresses: [
+      {
+        city: {
+          type: String,
+          default: "this.fullName",
+        },
+        street: {
+          type: String,
+          default: "Test Street",
+        },
+        houseNumber: {
+          type: String,
+          default: "Test House",
+        },
+      },
+    ],
   },
   { timestamps: true }
 );
@@ -53,7 +69,7 @@ userSchema.pre("save", async function (next) {
   try {
     this.password = await bcrypt.hash(this.password, 10);
   } catch (error) {
-    console.log("bcrypt error", error);
+    throw `bcrypt error ${error}`;
   }
   next();
 });

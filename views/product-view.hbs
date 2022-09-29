@@ -61,7 +61,7 @@
           </div>
           <div class="product__details__price">₹ {{product.price}} <span>₹ 83.0</span></div>
           <p>Nemo enim ipsam voluptatem quia aspernatur aut odit aut loret fugit, sed quia consequuntur
-            magni lores eos qui ratione voluptatem sequi nesciunt.</p>
+            magni lores eos qui ratione volupt atem sequi nesciunt.</p>
           <div class="product__details__button">
             <div class="quantity">
               <span>Quantity:</span>
@@ -71,13 +71,21 @@
               </div>
               <input id="productid" type="hidden" name="idd" value="{{product._id}}">
             </div>
-            <a id="btn-add-cart" onclick="adddtocart('{{product._id}}')" class="cart-btn"><span
-                class="icon_bag_alt"></span> Add to
-              cart</a>
-            <ul>
+
+            <ul class="float-right mr-2">
               <li><a href="#"><span class="icon_heart_alt"></span></a></li>
               <li><a href="#"><span class="icon_adjust-horiz"></span></a></li>
             </ul>
+
+          </div>
+          <div class="product__details__button d-flex justify-content-between text-center">
+            <a id="btn-add-cart" href="/cart" class="cart-btn rounded col"><span class="">
+                View Cart</span></a>
+            <a id="btn-add-cart" onclick="addToCart('{{product._id}}',$('#txt-item-qty').val())"
+              class="cart-btn rounded col"><span class=""> Add
+                to cart</span></a>
+            <a id="btn-add-cart" onclick="" class="cart-btn rounded col"><span class=""> Buy
+                Now</span></a>
           </div>
           <div class="product__details__widget">
             <ul>
@@ -299,113 +307,43 @@
 </section>
 <!-- Product Details Section End -->
 
-<!-- Instagram Begin -->
-<div class="instagram">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-        <div class="instagram__item set-bg" data-setbg="/user/public/img/instagram/insta-1.jpg">
-          <div class="instagram__text">
-            <i class="fa fa-instagram"></i>
-            <a href="#">@ Place_PalmirA</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-        <div class="instagram__item set-bg" data-setbg="/user/public/img/instagram/insta-2.jpg">
-          <div class="instagram__text">
-            <i class="fa fa-instagram"></i>
-            <a href="#">@ Place_PalmirA</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-        <div class="instagram__item set-bg" data-setbg="/user/public/img/instagram/insta-3.jpg">
-          <div class="instagram__text">
-            <i class="fa fa-instagram"></i>
-            <a href="#">@ Place_PalmirA</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-        <div class="instagram__item set-bg" data-setbg="/user/public/img/instagram/insta-4.jpg">
-          <div class="instagram__text">
-            <i class="fa fa-instagram"></i>
-            <a href="#">@ Place_PalmirA</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-        <div class="instagram__item set-bg" data-setbg="/user/public/img/instagram/insta-5.jpg">
-          <div class="instagram__text">
-            <i class="fa fa-instagram"></i>
-            <a href="#">@ Place_PalmirA</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-        <div class="instagram__item set-bg" data-setbg="/user/public/img/instagram/insta-6.jpg">
-          <div class="instagram__text">
-            <i class="fa fa-instagram"></i>
-            <a href="#">@ Place_PalmirA</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>{ { !--location.href = url; --} }
-<!-- Instagram End -->
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-{{!--
-<script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
-  crossorigin="anonymous"></script> --}}
-
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-{{!-- quantity: $('#txt-item-qty').val(), --}}
 
 <script>
-  function adddtocart(id) {
+
+
+  function addToCart(id, qty) {
 
     axios.post('/add-to-cart', {
       productId: id,
+      qty: qty,
+
     })
       .then(function (response) {
-        Swal.fire({
-          title: 'sucess',
-          text: response.data.message,
-          footer: '<a href="">Why do I have this issue?</a>'
-        })
+        let title, text, footer, config;
+        if (response.data.message) {
+          config = { icon: 'success', title: response.data.message, footer: '<a class="btn btn-dark btn-sm" href="/cart">Proceed to Cart!</a>', showConfirmButton: false }
+        } else {
+          config = { icon: 'info', title: `You haven't Login yet 👀`, footer: '<a class="btn btn-dark btn-sm" href="/login?refUrl=/shop">Proceed to Login</a>', showConfirmButton: false }
+
+        }
+        Swal.fire(config);
 
       })
       .catch(function (error) {
         Swal.fire({
           title: 'failure',
-          text: error.data.message,
+          text: error || 'oz',
           footer: '<a href="">Why do I have this issue?</a>'
         })
-
-
       });
-
-
   }
 
-</script>
+  function appendQty() {
 
-
-{{!--
-<script>
-  function qget() {
-
-    // (A) APPEND DATA
     var data = new URLSearchParams();
     data.append("qty", document.getElementById('txt-item-qty').value);
     url = document.getElementById('btn-add-cart').href + data.toString();
     location.href = url;
 
-    // (B) URL + REDIRECT
-    window.alert(url)
   }
-
 </script>
---}}

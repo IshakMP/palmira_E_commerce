@@ -15,9 +15,9 @@
 
 <!-- Shop Cart Section Begin -->
 <section class="shop-cart spad">
-  <div class="container">
+  <div class="container min-vh-100">
     <div class="row">
-      <div class="col-lg-12">
+      <div class="col-lg-8">
         <div class="shop__cart__table">
           <table>
             <thead>
@@ -29,6 +29,7 @@
                 <th></th>
               </tr>
             </thead>
+
             <tbody>
               {{#each cart.products}}
               <tr>
@@ -45,178 +46,135 @@
                     </div>
                   </div>
                 </td>
-                <td class="cart__price">$ {{product.price}}</td>
+                <td class="cart__price">₹ {{this.product.price}}</td>
                 <td class="cart__quantity">
                   <div class="pro-qty">
-                    <input type="text" value="{{this.Qty}}">
+                    <input type="text" value="{{this.qty}}" disabled>
                   </div>
                 </td>
-                <td class="cart__total">$ 300.0</td>
-                <td class="cart__close"><span class="icon_close"></span></td>
+                <td class="cart__total">₹ {{this.fAmount}}</td>
+                <td class="cart__close"><span id="item-refId" class="icon_close  btn-del"
+                    data-refId="{{product._id}}"></span></td>
+              </tr>
+              {{else}}
+              <tr>
+                <td colspan="10">
+                  <p class="text-center text-danger"> Cart is Currently Empty</p>
+                </td>
               </tr>
               {{/each}}
 
-              <tr>
-                <td class="cart__product__item">
-                  <img src="/user/public/img/shop-cart/cp-1.jpg" alt="">
-                  <div class="cart__product__item__title">
-                    <h6>Chain bucket bag</h6>
-                    <div class="rating">
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                    </div>
-                  </div>
-                </td>
-                <td class="cart__price">$ 150.0</td>
-                <td class="cart__quantity">
-                  <div class="pro-qty">
-                    <input type="text" value="1">
-                  </div>
-                </td>
-                <td class="cart__total">$ 300.0</td>
-                <td class="cart__close"><span class="icon_close"></span></td>
-              </tr>
-              <tr>
-                <td class="cart__product__item">
-                  <img src="/user/public/img/shop-cart/cp-2.jpg" alt="">
-                  <div class="cart__product__item__title">
-                    <h6>Zip-pockets pebbled tote briefcase</h6>
-                    <div class="rating">
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                    </div>
-                  </div>
-                </td>
-                <td class="cart__price">$ 170.0</td>
-                <td class="cart__quantity">
-                  <div class="pro-qty">
-                    <input type="text" value="1">
-                  </div>
-                </td>
-                <td class="cart__total">$ 170.0</td>
-                <td class="cart__close"><span class="icon_close"></span></td>
-              </tr>
-              <tr>
-                <td class="cart__product__item">
-                  <img src="/user/public/img/shop-cart/cp-3.jpg" alt="">
-                  <div class="cart__product__item__title">
-                    <h6>Black jean</h6>
-                    <div class="rating">
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                    </div>
-                  </div>
-                </td>
-                <td class="cart__price">$ 85.0</td>
-                <td class="cart__quantity">
-                  <div class="pro-qty">
-                    <input type="text" value="1">
-                  </div>
-                </td>
-                <td class="cart__total">$ 170.0</td>
-                <td class="cart__close"><span class="icon_close"></span></td>
-              </tr>
-              <tr>
-                <td class="cart__product__item">
-                  <img src="/user/public/img/shop-cart/cp-4.jpg" alt="">
-                  <div class="cart__product__item__title">
-                    <h6>Cotton Shirt</h6>
-                    <div class="rating">
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                    </div>
-                  </div>
-                </td>
-                <td class="cart__price">$ 55.0</td>
-                <td class="cart__quantity">
-                  <div class="pro-qty">
-                    <input type="text" value="1">
-                  </div>
-                </td>
-                <td class="cart__total">$ 110.0</td>
-                <td class="cart__close"><span class="icon_close"></span></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-6 col-md-6 col-sm-6">
-        <div class="cart__btn">
-          <a href="/shop">Continue Shopping</a>
-        </div>
-      </div>
-      <div class="col-lg-6 col-md-6 col-sm-6">
-        <div class="cart__btn update__btn">
-          <a href=""><span class="icon_loading"></span> Update cart</a>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-6">
-        <div class="discount__content">
-          <h6>Discount codes</h6>
-          <button id="testButton" type="button" class="btn btn-primary" data-bs-toggle="modal"
-            data-bs-target="#exampleModal">
-            Launch demo modal
-          </button>
 
-          <form action="#">
-            <input type="text" placeholder="Enter your coupon code">
-            <button type="submit" class="site-btn" id="testButton">Apply</button>
-          </form>
+            </tbody>
+
+          </table>
+
         </div>
       </div>
-      <div class="col-lg-4 offset-lg-2">
-        <div class="cart__total__procced">
+      <div class="col-lg-4">
+        <div class="cart__total__procced ">
+          <div class="discount__content text-center">
+            <form class="w-100" action="#">
+              <input type="text" class="text-gray " placeholder="BCK380">
+              <button type="submit" class="site-btn " id="testButton">Apply</button>
+            </form>
+            <p class="ml-3 text-left"><span class="icon_tag_alt"></span> Have a coupon? Apply Here...</p>
+          </div>
+          <hr data-content="this is test" class="hr-text mb-5">
+
           <h6>Cart total</h6>
           <ul>
-            <li>Subtotal <span id="testButtontxt">$ 750.0</span></li>
-            <li>Total <span>$ 750.0</span></li>
+            <li>Subtotal <span id="testButtontxt">₹ {{cart.total}}</span></li>
+            <li>Total <span>₹ {{cart.total}}</span></li>
           </ul>
-          <a href="/check-out" class="primary-btn">Proceed to checkout</a>
+          <a href="/checkout" class="primary-btn">Proceed to checkout</a>
+
+
+        </div>
+
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-sm-6 ">
+        <div class="cart__btn">
+          <a>Continue Shopping</a>
         </div>
       </div>
     </div>
+
   </div>
 </section>
+
 <!-- Shop Cart Section End -->
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div id="modal_body" class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
+<script>
+  "use strict"
+  const proQty = $(".pro-qty");
 
-<script type="text/javascript">
-  $("#testButton").click(function () {
-    var text = $("#testButtontxt").val();
-    $("#modal_body").html("Happy ONam");
+  proQty.on("click", ".qtybtn", function () {
+    const $button = $(this);
+    const oldVal = $button.parent().find("input").val();
+    const productId = $("#item-refId").attr('data-refId');
+
+    let qty = 1;
+    if ($button.hasClass("dec")) {
+      qty = -1;
+    }
+
+    axios.post('/add-to-cart', {
+      productId: productId,
+      qty: qty,
+
+    })
+      .then(function (response) {
+        if (response.data.message) {
+          location.reload()
+
+
+        } else {
+          alert('check Now. something is up')
+        }
+      })
+
+      .catch(function (error) {
+        $button.parent().find("input").val(oldVal)
+      });
   });
+
+
+  $('.btn-del').on('click', function () {
+    const $element = $(this);
+    const productId = $element.attr('data-refId');
+
+
+    axios.post('/delete-from-cart', {
+      productId: productId,
+
+    })
+      .then(function (response) {
+        let title, text, footer, config;
+        if (response.data.message) {
+          config = { icon: 'success', title: response.data.message, footer: '<a class="btn btn-dark btn-sm" href="/cart">Proceed to Cart!</a>', showConfirmButton: false }
+          $element.parent().parent().remove();
+          location.reload()
+          Swal.fire(config);
+
+
+        } else {
+          config = { icon: 'info', title: `You haven't Login yet 👀`, footer: '<a class="btn btn-dark btn-sm" href="/login">Proceed to Login</a>', showConfirmButton: false }
+          Swal.fire(config);
+
+        }
+
+      })
+      .catch(function (error) {
+        Swal.fire({
+          title: 'failure',
+          text: error || 'oz',
+          footer: '<a href="">Why do I have this issue?</a>'
+        })
+      });
+
+  }) 
 </script>

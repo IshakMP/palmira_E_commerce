@@ -15,7 +15,7 @@ router.post("/login", adminCtrl.postLoginHandler);
 // router.post("/register", adminCtrl.postRegisterHandler);
 router.get("/test", adminCtrl.getTestHandler);
 ////////////////////////
-router.get("/all-users", utils.checkAdminSession, adminCtrl.getAllUsers);
+router.get("/all-users", adminCtrl.getAllUsers);
 router.get("/all-products", adminCtrl.getAllProducts);
 router.get("/all-categories", adminCtrl.getAllCategories);
 router.get("/all-orders", adminCtrl.getAllOrders);

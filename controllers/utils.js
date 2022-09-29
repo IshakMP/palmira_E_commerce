@@ -14,11 +14,11 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 /////////////////////////////
-const checkUserSession = (req, res, next) => {
+const checkSession = (req, res, next) => {
   if (req.session.loggedIn) return next();
-  console.log("login false ethi--------------------");
 
   req.session.redirectUrl = req.originalUrl;
+
   res.redirect("/login");
 };
 
@@ -28,4 +28,4 @@ const checkAdminSession = (req, res, next) => {
 };
 exports.upload = upload;
 exports.checkAdminSession = checkAdminSession;
-exports.checkUserSession = checkUserSession;
+exports.checkSession = checkSession;

@@ -22,7 +22,7 @@ app.engine(
     extname: "hbs",
     layoutsDir: __dirname + "/views/zlayouts",
     partialsDir: [__dirname + "views/"],
-    defaultLayout: "user-layout.hbs",
+    defaultLayout: "user-layout",
     helpers: {
       formatDate: function (date) {
         newdate = date.toUTCString();

@@ -11,7 +11,8 @@ var app = express();
 var indexRouter = require("./routes/index-router");
 var usersRouter = require("./routes/user-router");
 var adminRouter = require("./routes/admin-router");
-
+// after a while, this is on Aug 21 restarting on the project
+// new features to be implemented soon
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "hbs");

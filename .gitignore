@@ -1,2 +1,6 @@
-config/config.env
-node_modules
+/config/config.env
+/node_modules/
+/.vs
+/zz-templates
+test.gitignore.js
+/config/tstignore

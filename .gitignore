@@ -2,5 +2,4 @@
 /node_modules/
 /.vs
 /zz-templates
-test.gitignore.js
 /config/tstignore

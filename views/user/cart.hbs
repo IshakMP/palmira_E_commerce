@@ -22,7 +22,7 @@
           <table>
             <thead>
               <tr>
-                <th>Product</th>
+                <th>Products</th>
                 <th>Price</th>
                 <th>Quantity</th>
                 <th>Total</th>
@@ -32,7 +32,7 @@
 
             <tbody>
               {{#each cart.products}}
-              <tr>
+              <tr data-refId="{{product._id}}">
                 <td class="cart__product__item">
                   <img src="/user/public/img/shop-cart/cp-1.jpg" alt="">
                   <div class="cart__product__item__title">
@@ -46,14 +46,14 @@
                     </div>
                   </div>
                 </td>
-                <td class="cart__price">₹ {{this.product.price}}</td>
-                <td class="cart__quantity">
+                <td class="product__price">₹ {{this.product.price}}</td>
+                <td class="product__quantity">
                   <div class="pro-qty">
                     <input type="text" value="{{this.qty}}" disabled>
                   </div>
                 </td>
-                <td class="cart__total">₹ {{this.fAmount}}</td>
-                <td class="cart__close"><span id="item-refId" class="icon_close  btn-del"
+                <td>₹ <span class="product__total ">{{this.fAmount}}</span></td>
+                <td class="product__close"><span id="item-refId" class="icon_close  btn-del"
                     data-refId="{{product._id}}"></span></td>
               </tr>
               {{else}}
@@ -84,8 +84,8 @@
 
           <h6>Cart total</h6>
           <ul>
-            <li>Subtotal <span id="testButtontxt">₹ {{cart.total}}</span></li>
-            <li>Total <span>₹ {{cart.total}}</span></li>
+            <li>Subtotal <span class="cart__subtotal">₹ {{cart.total}}</span></li>
+            <li>Total <span class="cart__total">₹ {{cart.total}}</span></li>
           </ul>
           <a href="/checkout" class="primary-btn">Proceed to checkout</a>
 
@@ -98,7 +98,7 @@
     <div class="row">
       <div class="col-lg-6 col-md-6 col-sm-6 ">
         <div class="cart__btn">
-          <a>Continue Shopping</a>
+          <a href="/shop">Continue Shopping</a>
         </div>
       </div>
     </div>
@@ -115,7 +115,7 @@
   proQty.on("click", ".qtybtn", function () {
     const $button = $(this);
     const oldVal = $button.parent().find("input").val();
-    const productId = $("#item-refId").attr('data-refId');
+    const productId = $button.closest('tr').attr('data-refId');
 
     let qty = 1;
     if ($button.hasClass("dec")) {
@@ -129,9 +129,11 @@
     })
       .then(function (response) {
         if (response.data.message) {
-          location.reload()
-
-
+          const obj = response.data.cart.products.find(item => item.product._id == productId) || {};
+          $button.parent().find("input").val(obj.qty);
+          $button.parent().parent().parent().find(".product__total").text(obj.fAmount);
+          $(".cart__subtotal").text(response.data.cart.subTotal)
+          $(".cart__total").text(response.data.cart.total)
         } else {
           alert('check Now. something is up')
         }
@@ -139,6 +141,7 @@
 
       .catch(function (error) {
         $button.parent().find("input").val(oldVal)
+        console.log(error)
       });
   });
 

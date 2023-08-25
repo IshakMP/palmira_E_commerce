@@ -12,7 +12,7 @@ server.listen(port);
 server.on("error", onError);
 server.on("listening", onListening);
 
-// functions provided by express gen
+// helper functions by express-generator
 function onError(error) {
   if (error.syscall !== "listen") {
     throw error;

@@ -4,7 +4,7 @@ const http = require("http");
 dotenv.config({ path: "./config/config.env" });
 
 const app = require("./app");
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
 app.set("port", port);
 
 const server = http.createServer(app);
@@ -12,7 +12,7 @@ server.listen(port);
 server.on("error", onError);
 server.on("listening", onListening);
 
-// functions provided by express gen
+// helper functions by express-generator
 function onError(error) {
   if (error.syscall !== "listen") {
     throw error;

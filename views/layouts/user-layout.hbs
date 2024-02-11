@@ -43,9 +43,6 @@
 
 </head>
 
-
-
-
 <body>
 
   <!-- Page Preloder -->
@@ -90,11 +87,11 @@
         <div class="offset-sm-1 col-xl-5 col-lg-6">
           <nav class="header__menu mx-auto">
             <ul class="">
-              <li class="active"><a href="/">Home</a></li>
-              <li><a href="/shop">Shop</a></li>
-              <li><a href="/cart">Cart</a></li>
-              <li><a href="/after">After</a></li>
-              <li><a href="/blog">Blog</a></li>
+              <li class=""><a href="/">Home</a></li>
+              <li class=""><a href="/blog">Blog</a></li>
+              <li class=""><a href="/shop">Shop</a></li>
+              <li class=""><a href="/cart">Cart</a></li>
+              <li class=""><a href="/after">After</a></li>
               {{!-- <li><a href="#">Pages</a>
                 <ul class="dropdown">
                   <li><a href="#">Product Details</a></li>
@@ -328,14 +325,13 @@
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.1.js"> </script>
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-
-
-
-
-
+  <script>
+    $(document).ready(function () {
+      let currentPath = $(location).attr('pathname');
+      $element = $("ul li a[href='" + currentPath + "']").parent()
+      $element.addClass("active");
+    })
+  </script>
 </body>
-
-
 
 </html>
